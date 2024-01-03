@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, Platform } from 'react-native';
 import { SearchBar } from '@rneui/themed';
 import Accordion from '../components/Accordion';
 import { ListItem, Avatar } from '@rneui/themed';
-import { View } from 'tamagui';
-
+import { View, XStack, YStack } from 'tamagui';
+import InventoryItem from '../components/InventoryItem';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Key } from '@tamagui/lucide-icons';
 
 //TODO - ensure Ids for Accordions are unique
 export default function ShoppingListScreen() {
@@ -12,33 +14,23 @@ export default function ShoppingListScreen() {
     const [searchQuery, setSearchQuery] = React.useState('');
 
     const itemList = [
-        { "name": "Cucumber", "quantity": 2, "lowQuantity": 2 },
-        { "name": "Eggs", "quantity": 4, "lowQuantity": 4 },
-        { "name": "Milk", "quantity": 10, "lowQuantity": 7 },
+        { "name": "Cucumber", "quantity": 2, "lowQuantity": 2, "targetQuantity": 9 },
+        { "name": "Milk", "quantity": 10, "lowQuantity": 7, "targetQuantity": 3 },
+        { "name": "Eggs", "quantity": 4, "lowQuantity": 4, "targetQuantity": 2 },
     ];
 
-    function InventoryItem({ name, quantity, lowQuantity }) {
-        console.log("🚀 ~ file: ShoppingListScreen.tsx:20 ~ InventoryItem ~ name:", name)
-
-        return (
-            <View>
-                <Text>{name}</Text>
-                <Text>{quantity}</Text>
-                <Text> {lowQuantity}</Text>
-            </View>
-        )
-    }
 
 
-    const childrenList = itemList.map((item, index) => (<InventoryItem key={index} name={item.name} quantity={item.quantity} lowQuantity={item.lowQuantity} />)
+    const childrenList = itemList.map((item, index) => (<InventoryItem key={index} name={item.name} quantity={item.quantity} lowQuantity={item.lowQuantity} targetQuantity={item.targetQuantity} />)
     )
-    console.log(childrenList)
+
 
     const search = (search) => {
         setSearchQuery(search);
     };
     return (
-        <ScrollView >
+
+        <KeyboardAwareScrollView  >
             <SearchBar
                 placeholder="Search"
                 onChangeText={search}
@@ -47,6 +39,7 @@ export default function ShoppingListScreen() {
             />
 
             <Accordion titleID={"test"} children={childrenList} />
-        </ScrollView>
+        </KeyboardAwareScrollView>
+
     );
 }

@@ -21,6 +21,7 @@ export default function Accordion({ titleID, children }) {
                     </ListItem.Content>}
                 isExpanded={isExpanded}
                 onPress={() => setIsExpanded(!isExpanded)}
+                bottomDivider
             >
                 {children.map((child, index) => (<ListItem key={index}>{child}</ListItem>))}
 
