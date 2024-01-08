@@ -10,6 +10,7 @@ import { List } from '@tamagui/lucide-icons';
 export default function Accordion({ titleID, children }) {
     const [isExpanded, setIsExpanded] = React.useState(false);
 
+    const colors = { "Raisin black": "#1e1e24", "Penn red": "#92140c", "Floral white": "#fff8f0", "Sunset": "#ffcf99", "Space cadet": "#111d4a" }
 
 
     return (
@@ -17,15 +18,19 @@ export default function Accordion({ titleID, children }) {
             <ListItem.Accordion
                 content={
                     <ListItem.Content>
-                        <ListItem.Title><Text>{titleID}</Text></ListItem.Title>
+                        <ListItem.Title><Text style={{ fontSize: 20, fontWeight: "bold" }}>{titleID}</Text></ListItem.Title>
                     </ListItem.Content>}
                 isExpanded={isExpanded}
                 onPress={() => setIsExpanded(!isExpanded)}
-                bottomDivider
+                style={{ backgroundColor: "red" }}
+                containerStyle={{
+                    width: "90%", backgroundColor: "white", borderRadius: 10, gap: 10
+                }}
             >
-                {children.map((child, index) => (<ListItem key={index}>{child}</ListItem>))}
-
-            </ListItem.Accordion>
+                <YStack width={"60%"} gap={10}>
+                    {children}
+                </YStack>
+            </ListItem.Accordion >
         </>
     )
 
