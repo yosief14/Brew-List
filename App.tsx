@@ -1,6 +1,7 @@
 import * as React from "react";
 import { TamaguiProvider } from 'tamagui'
 import config from './tamagui.config'
+import { InventoryProvider } from "./context/InventoryContextProvider";
 import {
   View,
   Text,
@@ -19,12 +20,14 @@ import HeaderLogo from "./components/Header";
 
 const Screen = Dimensions.get("screen").width;
 
+
+
 const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "#FFF",
-    primary: "#FFF",
+    background: "#f4f5f7",
+    primary: "#f4f5f7",
     text: "#000",
   },
 };
@@ -43,28 +46,30 @@ const tabScreenOptions = {
 
 function App() {
   return (
-    <TamaguiProvider config={config}>
-      <NavigationContainer theme={MyTheme}>
+    <InventoryProvider>
+      <TamaguiProvider config={config}>
+        <NavigationContainer theme={MyTheme}>
 
-        <Tab.Navigator initialRouteName="Home" screenOptions={tabScreenOptions}>
-          <Tab.Screen
-            name="Home"
-            component={DashboardScreen}
-            options={{ headerTitle: () => <HeaderLogo title={"Dashboard"} /> }}
-          />
-          <Tab.Screen
-            name="Inventory"
-            component={InventoryScreen}
-            options={{ headerTitle: () => <HeaderLogo title={"Inventory"} /> }}
-          />
-          <Tab.Screen
-            name="Shopping List"
-            component={ShoppingListScreen}
-            options={{ headerTitle: () => <HeaderLogo title={"Shopping List"} /> }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </TamaguiProvider>
+          <Tab.Navigator initialRouteName="Home" screenOptions={tabScreenOptions}>
+            <Tab.Screen
+              name="Home"
+              component={DashboardScreen}
+              options={{ headerTitle: () => <HeaderLogo title={"Dashboard"} /> }}
+            />
+            <Tab.Screen
+              name="Inventory"
+              component={InventoryScreen}
+              options={{ headerTitle: () => <HeaderLogo title={"Inventory"} /> }}
+            />
+            <Tab.Screen
+              name="Shopping List"
+              component={ShoppingListScreen}
+              options={{ headerTitle: () => <HeaderLogo title={"Shopping List"} /> }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </TamaguiProvider>
+    </InventoryProvider>
   );
 }
 
