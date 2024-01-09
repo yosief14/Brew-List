@@ -1,63 +1,49 @@
 import * as React from 'react';
-import { Text, View, ScrollView, } from 'react-native';
 import { SearchBar } from '@rneui/themed';
-import { Accordion, Square, } from 'tamagui';
-import { ChevronDown } from '@tamagui/lucide-icons'
+import Accordion from '../components/Accordion';
+import { View } from 'react-native';
 import InventoryItem from '../components/InventoryItem';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { getItemList } from '../services/inventoryDataServices';
+import { InventoryContext } from '../context/InventoryContextProvider';
 
-
-export default function InventoryScreen() {
+//TODO - ensure Ids for Accordions are unique
+export default function ShoppingListScreen() {
 
     const [searchQuery, setSearchQuery] = React.useState('');
+    const { inventory } = React.useContext(InventoryContext);
 
     const search = (search) => {
         setSearchQuery(search);
     };
 
+    const getInventoryListComponents = () => {
+        const retList = [];
+
+        for (let i = 0; i < inventory.length; i++) {
+            const location = inventory[i].location;
+            const childrenList = inventory[i].items.map((item, index) => (<InventoryItem key={index} name={item.name} quantity={item.quantity} lowQuantity={item.lowQuantity} targetQuantity={item.targetQuantity} location={location} />)
+            )
+            retList.push(<Accordion key={i} titleID={inventory[i].location} children={childrenList} />)
+        }
+        return retList;
+    }
+
+    const accordionFolder = getInventoryListComponents();
     return (
-        <ScrollView contentContainerStyle={{ alignItems: 'center' }} >
+
+        <KeyboardAwareScrollView contentContainerStyle={{ alignItems: "center", gap: 10 }}  >
             <SearchBar
                 placeholder="Search"
                 onChangeText={search}
                 value={searchQuery}
                 platform='ios'
+                containerStyle={{ width: '90%', backgroundColor: '#f4f5f7', borderRadius: 10 }}
             />
-            <Accordion width="100%" type="multiple" >
-                <Accordion.Item value="a1" borderWidth={0}>
-                    <Accordion.Trigger flexDirection="row" justifyContent="space-between" backgroundColor="white" borderTopWidth={0}>
-                        {({ open }) => (
-                            <>
-                                <Text>1. Take a cold shower</Text>
-                                <Square animation="quick" rotate={open ? '180deg' : '0deg'}>
-                                    <ChevronDown size="$1" />
-                                </Square>
-                            </>
-                        )}
-                    </Accordion.Trigger>
-                    <Accordion.Content backgroundColor="red" borderWidth={'0'} margin={0}>
-                        <InventoryItem name="Cucumber" quantity={2} lowQuantity={2} />
-                    </Accordion.Content>
-                </Accordion.Item>
 
-                <Accordion.Item value="a2">
-                    <Accordion.Trigger flexDirection="row" justifyContent="space-between" backgroundColor="white" borderTopWidth={0}>
-                        {({ open }) => (
-                            <>
-                                <Text>2. Eat 4 eggs</Text>
-                                <Square animation="quick" rotate={open ? '180deg' : '0deg'}>
-                                    <ChevronDown size="$1" />
-                                </Square>
-                            </>
-                        )}
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                        <Text>
-                            Eggs have been a dietary staple since time immemorial and there’s good reason
-                            for their continued presence in our menus and meals.
-                        </Text>
-                    </Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
-        </ScrollView>
+            {accordionFolder}
+
+        </KeyboardAwareScrollView>
+
     );
 }
