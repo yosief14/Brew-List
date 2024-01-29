@@ -29,7 +29,8 @@ function reducer(state: State, action: Action): State {
 // ? The Dispatch function is a type definityion usid in conjucation with useReducer
 // ? useReducer is a allternative to useState that is preferable when complex state logic
 //TODO - Figure out why when I pass initialState.items to createContext it works but when I pass just initialState it doesn't
-export const ShoppingListItemsContext = createContext(initialState);
+
+export const ShoppingListItemsContext = createContext<State>(initialState);
 export const ShoppingListDispatchContext = createContext<React.Dispatch<Action>>(null);
 
 //TODO revisit dispatch

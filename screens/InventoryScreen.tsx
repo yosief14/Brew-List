@@ -8,7 +8,7 @@ import { getItemList } from '../services/inventoryDataServices';
 import { InventoryContext } from '../context/InventoryContextProvider';
 
 //TODO - ensure Ids for Accordions are unique
-export default function ShoppingListScreen() {
+export default function InventoryScreen() {
 
     const [searchQuery, setSearchQuery] = React.useState('');
     const { inventory } = React.useContext(InventoryContext);

@@ -13,30 +13,29 @@ export default function InventoryItem(props: { name: string, quantity: number, l
 
     //TODO - Style the inventory Item into cards
     return (
-        <YStack alignItems='center' space={3} padding={10} borderRadius={10} backgroundColor={"white"}>
-            <XStack width={"100%"} justifyContent='space-between' alignItems='center' >
-                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                    {props.name}
+        <YStack alignItems='center' width={350} space={3} padding={10} borderRadius={10} backgroundColor={"white"}>
 
-                </Text>
-                <Input containerStyle={{ width: 70, height: 40, padding: 0, margin: 0 }}
-                    inputContainerStyle={{ borderBottomWidth: 0, }}
-                    inputStyle={{ fontWeight: "bold", fontSize: 20, color: props.quantity <= props.lowQuantity ? "black" : "red" }}
-                    returnKeyType='done'
-                    inputMode='decimal'
-                    defaultValue={quantity.toString()}
-                >
-                    X
-                </Input>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                {props.name}
 
-            </XStack>
-            <XGroup height={80} separator={<Separator vertical />} width={"50%"} justifyContent='center' >
+            </Text>
+            <Input containerStyle={{ width: 70, height: 40, padding: 0, margin: 0 }}
+                inputContainerStyle={{ borderBottomWidth: 0, }}
+                inputStyle={{ fontWeight: "bold", fontSize: 20, color: props.quantity <= props.lowQuantity ? "black" : "red" }}
+                returnKeyType='done'
+                inputMode='decimal'
+                defaultValue={quantity.toString()}
+            >
+            </Input>
+
+
+            <XGroup height={80} separator={<Separator vertical />} width={"100%"} justifyContent='center' >
                 <Button icon={Minus} fontWeight={"bold"} color={"white"} backgroundColor={"black"} scaleIcon={2} size="$6" flexGrow={1} onPress={() => changeQuantity(-1)} />
                 <Button icon={Plus} fontWeight={"bold"} color={"white"} backgroundColor={"black"} scaleIcon={2} size="$6" flexGrow={1} onPress={() => changeQuantity(-1)} />
                 {/*TODO - wrap this input in a Pressable that sets the focus to the input*/}
 
             </XGroup>
-            <XGroup justifyContent='center' width={"100%"} alignItems='center' borderBlockColor={"white"} bord>
+            <XGroup justifyContent='center' width={"100%"} alignItems='center' borderBlockColor={"white"}>
                 <XGroup.Item>
                     <Button icon={Undo2} fontWeight={"bold"} scaleIcon={2} size="$4" flexGrow={1}>Undo</Button>
                 </XGroup.Item>

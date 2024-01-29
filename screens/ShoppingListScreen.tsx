@@ -6,6 +6,7 @@ import ShoppingListItem from '../components/ShoppingListItem';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { getItemList } from '../services/inventoryDataServices';
 import { InventoryContext } from '../context/InventoryContextProvider';
+import { ShoppingListItemsContext } from '../context/ShoppingListContextProvider';
 
 //TODO - ensure Ids for Accordions are unique
 export default function ShoppingListScreen() {

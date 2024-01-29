@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Input, CheckBox } from '@rneui/themed';
 import { Text, Pressable } from 'react-native';
 import { useContext } from 'react';
-import { ShoppingListContext } from '../context/ShoppingListContextProvider';
+import { ShoppingListDispatchContext } from '../context/ShoppingListContextProvider';
 import { XStack, YGroup, Button, YStack } from 'tamagui';
 import { Check as CheckIcon, Minus, Plus } from '@tamagui/lucide-icons';
-
 export default function ShoppingListItem(props: { name: string, quantity: number, lowQuantity: number, targetQuantity: number, location: string }) {
-    const [state, dispatch] = useContext(ShoppingListContext)
+
+    const [state, dispatch] = useContext(ShoppingListDispatchContext)
     console.log("🚀 ~ ShoppingListItem ~ state:", state)
     const item = state.items[props.name] || { quantity: props.quantity, checked: false };
     function changeQuantity(amount: number) {
