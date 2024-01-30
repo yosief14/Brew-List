@@ -27,7 +27,6 @@ export function InventoryProvider({ children }) {
         const itemList = getItemList();
         setInventory(itemList);
     }, []);
-    console.log("🚀 ~ InventoryContextProvider ~ inventory:\n", inventory)
 
     return (
         <InventoryContext.Provider value={{ inventory, updateQuantity }}>

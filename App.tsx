@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import DashboardScreen from "../test-app/screens/DashboardScreen";
 import InventoryScreen from "./screens/InventoryScreen";
 import ShoppingListScreen from "./screens/ShoppingListScreen";
+import DrawerScreen from "./screens/DrawerScreen";
 import HeaderLogo from "./components/Header";
 
 const Screen = Dimensions.get("screen").width;
@@ -28,7 +29,7 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "black",
+    background: "#131921",
     primary: "#f4f5f7",
 
     text: "#000",
@@ -42,12 +43,15 @@ const tabScreenOptions = {
 
 
     backgroundColor: "black",
+    borderTopWidth: 0,
+
 
     tabBarBackground: () => <View style={{ backgroundColor: "red" }} />, // Use the style prop to set the background color
   },
   headerStyle: {
-    backgroundColor: "black",
+    backgroundColor: "#1B232E",
     height: 90,
+    borderBottomWidth: 0,
   },
 
 };
@@ -74,6 +78,11 @@ function App() {
                 name="Shopping List"
                 component={ShoppingListScreen}
                 options={{ headerTitle: () => <HeaderLogo title={"Shopping List"} /> }}
+              />
+              <Tab.Screen
+                name="Drawer Screen"
+                component={DrawerScreen}
+                options={{ headerTitle: () => <HeaderLogo title={"Drawer"} /> }}
               />
             </Tab.Navigator>
           </NavigationContainer>

@@ -12,7 +12,9 @@ import { ShoppingListItemsContext } from '../context/ShoppingListContextProvider
 export default function ShoppingListScreen() {
 
     const [searchQuery, setSearchQuery] = React.useState('');
+    const { shoppingItems } = React.useContext(ShoppingListItemsContext);
     const { inventory } = React.useContext(InventoryContext);
+
 
     const search = (search) => {
         setSearchQuery(search);
@@ -26,12 +28,10 @@ export default function ShoppingListScreen() {
         for (let i = 0; i < inventory.length; i++) {
             const location = inventory[i].location;
             const childrenList = inventory[i].items.map((item, index) => (<ShoppingListItem key={index} name={item.name} quantity={item.quantity} lowQuantity={item.lowQuantity} targetQuantity={item.targetQuantity} location={location} />)
-            )
-            console.log("🚀 ~ getInventoryListComponents ~ ShoppingListItem:", ShoppingListItem)
+            );
             retList.push(<Accordion key={i} titleID={inventory[i].location} children={childrenList} />)
 
         }
-        console.log("🚀 ~ getInventoryListComponents ~ retList:\n", retList)
         return retList;
     }
 
